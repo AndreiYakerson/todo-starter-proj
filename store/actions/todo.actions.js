@@ -2,7 +2,7 @@ import { showErrorMsg, showSuccessMsg } from "../../services/event-bus.service.j
 import { todoService } from "../../services/todo.service.js";
 
 
-import { REMOVE_TODOS, SET_TODOS, store } from "../store.js";
+import { ADD_TODO, REMOVE_TODOS, SET_TODOS, store, UPDATE_TODO } from "../store.js";
 
 export function loadTodos(filterBy) {
     return todoService.query(filterBy)
@@ -15,7 +15,7 @@ export function loadTodos(filterBy) {
 }
 
 export function removeTodo(todoId) {
-    todoService.remove(todoId)
+    return todoService.remove(todoId)
         .then(() => {
             store.dispatch({ type: REMOVE_TODOS, todoId })
             showSuccessMsg(`Todo removed`)
@@ -23,5 +23,20 @@ export function removeTodo(todoId) {
         .catch(err => {
             console.error('err:', err)
             showErrorMsg('Cannot remove todo ' + todoId)
+        })
+}
+
+export function saveTodo(todoToSave) {
+    const cmdType = todoToSave._id ? UPDATE_TODO : ADD_TODO
+    
+    return todoService.save(todoToSave)
+        .then((savedTodo) => {
+            
+            store.dispatch({ type: cmdType, savedTodo })
+            showSuccessMsg(`Todo is ${(savedTodo.isDone) ? 'done' : 'back on your list'}`)
+        })
+        .catch(err => {
+            console.log('err:', err)
+            showErrorMsg('Cannot toggle todo ')
         })
 }

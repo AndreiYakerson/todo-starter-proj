@@ -3,7 +3,7 @@ import { TodoList } from "../cmps/TodoList.jsx"
 import { DataTable } from "../cmps/data-table/DataTable.jsx"
 import { todoService } from "../services/todo.service.js"
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
-import { loadTodos, removeTodo } from "../store/actions/todo.actions.js"
+import { loadTodos, removeTodo, saveTodo } from "../store/actions/todo.actions.js"
 
 const { useState, useEffect } = React
 const { useSelector, useDispatch } = ReactRedux
@@ -24,6 +24,7 @@ export function TodoIndex() {
     useEffect(() => {
         setSearchParams(filterBy)
         loadTodos(filterBy)
+        //TODO infinite loop when i add todos
     }, [filterBy])
 
     function onRemoveTodo(todoId) {
@@ -31,16 +32,10 @@ export function TodoIndex() {
     }
 
     function onToggleTodo(todo) {
+        //TODO fix toggle bug
         const todoToSave = { ...todo, isDone: !todo.isDone }
-        todoService.save(todoToSave)
-            .then((savedTodo) => {
-                setTodos(prevTodos => prevTodos.map(currTodo => (currTodo._id !== todo._id) ? currTodo : { ...savedTodo }))
-                showSuccessMsg(`Todo is ${(savedTodo.isDone) ? 'done' : 'back on your list'}`)
-            })
-            .catch(err => {
-                console.log('err:', err)
-                showErrorMsg('Cannot toggle todo ' + todoId)
-            })
+        console.log(todoToSave);
+        saveTodo(todoToSave)
     }
 
     if (!todos) return <div>Loading...</div>
