@@ -52,7 +52,7 @@ function save(todo) {
         return storageService.put(TODO_KEY, todo)
     } else {
         todo.createdAt = todo.updatedAt = Date.now()
-
+        todo._id = utilService.makeId()
         return storageService.post(TODO_KEY, todo)
     }
 }
