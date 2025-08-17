@@ -13,19 +13,27 @@ export function TodoIndex() {
 
     // const [todos, setTodos] = useState(null)
     const todos = useSelector(state => state.todos)
+    const filterBy = useSelector(state => state.filterBy)
+    const dispatch = useDispatch()
 
     // Special hook for accessing search-params:
     const [searchParams, setSearchParams] = useSearchParams()
 
     const defaultFilter = todoService.getFilterFromSearchParams(searchParams)
-
-    const [filterBy, setFilterBy] = useState(defaultFilter)
-
+    // console.log(defaultFilter);
+    
+    // const [filterBy, setFilterBy] = useState(defaultFilter)
+    useEffect(() => {
+        dispatch({type: 'SET_FILTER_BY', filterBy: defaultFilter})
+        
+    },[])
+    
     useEffect(() => {
         setSearchParams(filterBy)
         loadTodos(filterBy)
-        //TODO infinite loop when i add todos
     }, [filterBy])
+
+
 
     function onRemoveTodo(todoId) {
         removeTodo(todoId)
@@ -41,7 +49,7 @@ export function TodoIndex() {
     if (!todos) return <div>Loading...</div>
     return (
         <section className="todo-index">
-            <TodoFilter filterBy={filterBy} onSetFilterBy={setFilterBy} />
+            <TodoFilter filterBy={filterBy} />
             <div>
                 <Link to="/todo/edit" className="btn" >Add Todo</Link>
             </div>
