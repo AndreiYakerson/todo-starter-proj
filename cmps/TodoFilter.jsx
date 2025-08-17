@@ -1,18 +1,14 @@
-const { useState, useEffect } = React
+const { useEffect } = React
 const { useSelector, useDispatch } = ReactRedux
 
 export function TodoFilter({ filterBy }) {
-
-    // const [filterByToEdit, setFilterByToEdit] = useState({...filterBy})
-
     const dispatch = useDispatch()
-    
-    useEffect(() => {
-    }, [filterBy])
-    
+
+    useEffect(() => { }, [filterBy])
+
     useEffect(() => {
         dispatch({ type: 'SET_FILTER_BY', filterBy: filterBy })
-    },[])
+    }, [])
 
     function handleChange({ target }) {
         const field = target.name
@@ -31,7 +27,7 @@ export function TodoFilter({ filterBy }) {
             default: break
         }
 
-        dispatch({ type: 'SET_FILTER_BY', filterBy: {[field]: value }})
+        dispatch({ type: 'SET_FILTER_BY', filterBy: { [field]: value } })
     }
 
     // Optional support for LAZY Filtering with a button
@@ -41,8 +37,8 @@ export function TodoFilter({ filterBy }) {
     }
 
     const { txt, importance } = filterBy
-    
-    
+
+
     return (
         <section className="todo-filter">
             <h2>Filter Todos</h2>
