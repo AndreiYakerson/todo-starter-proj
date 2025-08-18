@@ -8,8 +8,9 @@ export const REMOVE_TODOS = 'REMOVE_TODOS'
 export const TOGGLE_TODO = 'TOGGLE_TODO'
 export const ADD_TODO = 'ADD_TODO'
 export const UPDATE_TODO = 'UPDATE_TODO'
-export const SET_FILTER_BY = 'SET_FILTER_BY'
+export const SET_DONE_PERCENT = 'SET_DONE_PERCENT'
 
+export const SET_FILTER_BY = 'SET_FILTER_BY'
 
 export const SET_USER = 'SET_USER'
 
@@ -18,6 +19,7 @@ const initialState = {
     todos: [],
     filterBy: todoService.getDefaultFilter(),
     loggedinUser: null,
+    donePercent: 0,
 }
 
 
@@ -37,6 +39,9 @@ export function appReducer(state = initialState, cmd = {}) {
         case UPDATE_TODO:
             var todos = state.todos.map(todo => todo._id !== cmd.savedTodo._id ? todo : cmd.savedTodo)
             return { ...state, todos: [...todos] }
+
+        case SET_DONE_PERCENT:
+            return { ...state, donePercent: cmd.donePercent }
 
         case SET_FILTER_BY:
             return { ...state, filterBy: { ...state.filterBy, ...cmd.filterBy } }

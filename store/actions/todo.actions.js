@@ -2,7 +2,7 @@ import { showErrorMsg, showSuccessMsg } from "../../services/event-bus.service.j
 import { todoService } from "../../services/todo.service.js";
 
 
-import { ADD_TODO, REMOVE_TODOS, SET_TODOS, store, UPDATE_TODO } from "../store.js";
+import { ADD_TODO, REMOVE_TODOS, SET_DONE_PERCENT, SET_TODOS, store, UPDATE_TODO } from "../store.js";
 
 export function loadTodos(filterBy) {
     return todoService.query(filterBy)
@@ -38,5 +38,16 @@ export function saveTodo(todoToSave) {
         .catch(err => {
             console.log('err:', err)
             showErrorMsg('Cannot toggle todo ')
+        })
+}
+
+export function updateDonePercent() {
+    return todoService.getDonePercent()
+        .then(donePercent => {
+            store.dispatch({ type: SET_DONE_PERCENT, donePercent })
+        })
+        .catch(err => {
+            console.error('err:', err)
+            showErrorMsg('Cannot get done percent')
         })
 }

@@ -1,28 +1,29 @@
 
 const { Link, NavLink } = ReactRouterDOM
-const { useNavigate } = ReactRouter
 const { useSelector, useDispatch } = ReactRedux
+const { useEffect } = React
 
-import { userService } from '../services/user.service.js'
 import { UserMsg } from "./UserMsg.jsx"
 import { LoginSignup } from './LoginSignup.jsx'
-import { showErrorMsg } from '../services/event-bus.service.js'
 import { logout } from '../store/actions/user.actions.js'
+import { updateDonePercent } from '../store/actions/todo.actions.js'
 
 
 export function AppHeader() {
-    const navigate = useNavigate()
-    // const [user, setUser] = useState(userService.getLoggedinUser())
     const loggedinUser = useSelector(state => state.loggedinUser)
+    const donePercent = useSelector(state => state.donePercent)
+    const todos = useSelector(state => state.todos)
+
+    useEffect(() => {
+        updateDonePercent()
+    },[todos])
     
     function onLogout() {
        logout()
     }
 
-    // function onSetUser(user) {
-    //     setUser(user)
-    //     navigate('/')
-    // }
+
+    
     return (
         <header className="app-header full main-layout">
             <section className="header-container">
@@ -37,6 +38,9 @@ export function AppHeader() {
                         <LoginSignup />
                     </section>
                 )}
+                <section className="percent-container">
+                    <p>Done: {donePercent}%</p>
+                </section>
                 <nav className="app-nav">
                     <NavLink to="/" >Home</NavLink>
                     <NavLink to="/about" >About</NavLink>
