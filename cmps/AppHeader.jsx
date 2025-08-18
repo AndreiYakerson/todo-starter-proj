@@ -32,15 +32,13 @@ export function AppHeader() {
                     < section >
                         <Link to={`/user/${loggedinUser._id}`}>Hello {loggedinUser.fullname}</Link>
                         <button onClick={onLogout}>Logout</button>
+                        <p>Done: {donePercent}%</p>
                     </ section >
                 ) : (
                     <section>
                         <LoginSignup />
                     </section>
                 )}
-                <section className="percent-container">
-                    <p>Done: {donePercent}%</p>
-                </section>
                 <nav className="app-nav">
                     <NavLink to="/" >Home</NavLink>
                     <NavLink to="/about" >About</NavLink>
