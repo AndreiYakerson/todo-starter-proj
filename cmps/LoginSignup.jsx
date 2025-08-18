@@ -8,6 +8,7 @@ export function LoginSignup({ onSetUser }) {
 
     const [isSignup, setIsSignUp] = useState(false)
     const [credentials, setCredentials] = useState(userService.getEmptyCredentials())
+    
 
     function handleChange({ target }) {
         const { name: field, value } = target
@@ -19,18 +20,9 @@ export function LoginSignup({ onSetUser }) {
         onLogin(credentials)
     }
 
-
     function onLogin(credentials) {
         isSignup ? signup(credentials) : login(credentials)
     }
-
-    // function login(credentials) {
-    //     // userService.login(credentials)
-    //     //     .then(onSetUser)
-    //     //     .then(() => { showSuccessMsg('Logged in successfully') })
-    //     //     .catch((err) => { showErrorMsg('Oops try again') })
-    //     login()
-    // }
 
     function signup(credentials) {
         userService.signup(credentials)
