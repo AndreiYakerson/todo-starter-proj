@@ -33,7 +33,6 @@ export function TodoIndex() {
     function onToggleTodo(todo) {
         //TODO fix toggle bug
         const todoToSave = { ...todo, isDone: !todo.isDone }
-        console.log(todoToSave);
         saveTodo(todoToSave)
     }
 
