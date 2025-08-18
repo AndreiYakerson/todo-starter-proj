@@ -34,7 +34,7 @@ export function TodoFilter({ filterBy }) {
         dispatch({ type: 'SET_FILTER_BY', filterBy: filterBy })
     }
 
-    
+
     const { txt, importance, sortBy } = filterBy
 
     return (
@@ -50,7 +50,7 @@ export function TodoFilter({ filterBy }) {
                 />
 
                 <select name="sortBy" value={sortBy} id="sortBy" onChange={handleChange}>
-                    <option value="All">All</option>
+                    <option value="">All</option>
                     <option value="Done">Done</option>
                     <option value="Active">Active</option>
                 </select>

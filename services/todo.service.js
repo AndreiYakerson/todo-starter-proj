@@ -30,7 +30,7 @@ function query(filterBy = {}) {
                 todos = todos.filter(todo => todo.importance >= filterBy.importance)
             }
 
-            if (filterBy.sortBy !== 'All') {
+            if (filterBy.sortBy !== '') {
                 if (filterBy.sortBy === 'Done') todos = todos.filter(todo => todo.isDone)
                 else todos = todos.filter(todo => !todo.isDone)
             }

@@ -26,6 +26,7 @@ export function TodoIndex() {
         loadTodos(filterBy)
     }, [filterBy])
 
+    
     function onRemoveTodo(todoId) {
         removeTodo(todoId)
     }
