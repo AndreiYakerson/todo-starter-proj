@@ -1,6 +1,6 @@
 export function TodoPreview({ todo, onToggleTodo }) {
     return (
-        <article className="todo-preview">
+        <article className="todo-preview" >
             <h2 className={(todo.isDone)? 'done' : ''} onClick={onToggleTodo}>
                 Todo: {todo.txt}
             </h2>

@@ -4,7 +4,7 @@ export const utilService = {
     getRandomIntInclusive,
     loadFromStorage,
     saveToStorage,
-    animateCSS
+    animateCSS,
 }
 
 function makeId(length = 6) {
@@ -58,3 +58,4 @@ function animateCSS(el, animation='bounce') {
         el.addEventListener('animationend', handleAnimationEnd, { once: true })
     })
 }
+
