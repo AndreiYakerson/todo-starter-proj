@@ -4,8 +4,6 @@ const { useSelector, useDispatch } = ReactRedux
 export function TodoFilter({ filterBy }) {
     const dispatch = useDispatch()
 
-    useEffect(() => { }, [filterBy])
-
     useEffect(() => {
         dispatch({ type: 'SET_FILTER_BY', filterBy: filterBy })
     }, [])
@@ -36,8 +34,8 @@ export function TodoFilter({ filterBy }) {
         dispatch({ type: 'SET_FILTER_BY', filterBy: filterBy })
     }
 
-    const { txt, importance } = filterBy
-
+    
+    const { txt, importance, sortBy } = filterBy
 
     return (
         <section className="todo-filter">
@@ -50,6 +48,12 @@ export function TodoFilter({ filterBy }) {
                 <input value={importance} onChange={handleChange}
                     type="number" placeholder="By Importance" id="importance" name="importance"
                 />
+
+                <select name="sortBy" value={sortBy} id="sortBy" onChange={handleChange}>
+                    <option value="All">All</option>
+                    <option value="Done">Done</option>
+                    <option value="Active">Active</option>
+                </select>
 
                 <button hidden>Set Filter</button>
             </form>
