@@ -1,5 +1,5 @@
 const { useEffect } = React
-const { useSelector, useDispatch } = ReactRedux
+const { useDispatch } = ReactRedux
 
 export function TodoFilter({ filterBy }) {
     const dispatch = useDispatch()

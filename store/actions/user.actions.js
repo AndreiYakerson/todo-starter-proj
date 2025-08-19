@@ -1,6 +1,7 @@
 import { showErrorMsg, showSuccessMsg } from "../../services/event-bus.service.js";
 import { userService } from "../../services/user.service.js";
-import { SET_USER, store } from "../store.js";
+import { SET_USER } from "../reducers/user.reducer.js";
+import { store } from "../store.js";
 
 export function login(user) {
     userService.login(user)

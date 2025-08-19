@@ -1,8 +1,8 @@
 import { showErrorMsg, showSuccessMsg } from "../../services/event-bus.service.js";
 import { todoService } from "../../services/todo.service.js";
+import { ADD_TODO, REMOVE_TODOS, SET_DONE_PERCENT, SET_TODOS, UPDATE_TODO } from "../reducers/todo.reducer.js";
+import { store } from "../store.js";
 
-
-import { ADD_TODO, REMOVE_TODOS, SET_DONE_PERCENT, SET_TODOS, store, UPDATE_TODO } from "../store.js";
 
 export function loadTodos(filterBy) {
     return todoService.query(filterBy)

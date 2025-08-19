@@ -3,14 +3,15 @@ import { TodoList } from "../cmps/TodoList.jsx"
 import { DataTable } from "../cmps/data-table/DataTable.jsx"
 import { todoService } from "../services/todo.service.js"
 import { loadTodos, removeTodo, saveTodo } from "../store/actions/todo.actions.js"
+import { SET_FILTER_BY } from "../store/reducers/todo.reducer.js"
 
 const {  useEffect } = React
 const { useSelector, useDispatch } = ReactRedux
 const { Link, useSearchParams } = ReactRouterDOM
 
 export function TodoIndex() {
-    const todos = useSelector(state => state.todos)
-    const filterBy = useSelector(state => state.filterBy)
+    const todos = useSelector(state => state.todoModule.todos)
+    const filterBy = useSelector(state => state.todoModule.filterBy)
 
     const dispatch = useDispatch()
 
@@ -18,7 +19,7 @@ export function TodoIndex() {
     const defaultFilter = todoService.getFilterFromSearchParams(searchParams)
 
     useEffect(() => {
-        dispatch({type: 'SET_FILTER_BY', filterBy: defaultFilter}) 
+        dispatch({type: SET_FILTER_BY, filterBy: defaultFilter}) 
     },[])
     
     useEffect(() => {

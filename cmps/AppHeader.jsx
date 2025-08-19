@@ -10,9 +10,9 @@ import { updateDonePercent } from '../store/actions/todo.actions.js'
 
 
 export function AppHeader() {
-    const loggedinUser = useSelector(state => state.loggedinUser)
-    const donePercent = useSelector(state => state.donePercent)
-    const todos = useSelector(state => state.todos)
+    const loggedinUser = useSelector(state => state.userModule.loggedinUser)
+    const donePercent = useSelector(state => state.todoModule.donePercent)
+    const todos = useSelector(state => state.todoModule.todos)
 
     useEffect(() => {
         updateDonePercent()
