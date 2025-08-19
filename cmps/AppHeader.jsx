@@ -17,7 +17,7 @@ export function AppHeader() {
 
     useEffect(() => {
         updateDonePercent()
-    },[todos])
+    },[todos,loggedinUser])
     
     function onLogout() {
        logout()

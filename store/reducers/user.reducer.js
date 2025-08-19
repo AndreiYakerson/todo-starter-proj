@@ -6,7 +6,7 @@ export const SET_BALANCE = 'SET_BALANCE'
 
 const initialState = {
     loggedinUser: null,
-    userBalance: userService.getLoggedinUser().balance || 0,
+    userBalance: userService.getLoggedinUser()? userService.getLoggedinUser().balance : 0,
 }
 
 export function userReducer(state = initialState, cmd = {}) {

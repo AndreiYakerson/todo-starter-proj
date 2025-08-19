@@ -57,6 +57,7 @@ function setUserBalance(balance) {
         .then(_setLoggedinUser)
 }
 
+
 function _setLoggedinUser(user) {
     const userToSave = { _id: user._id, fullname: user.fullname, balance: user.balance }
     sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(userToSave))

@@ -5,21 +5,27 @@ import { store } from "../store.js";
 
 export function login(user) {
     userService.login(user)
-        .then(loggedinUser => store.dispatch({ type: SET_USER, loggedinUser }))
+        .then(loggedinUser => {
+            store.dispatch({ type: SET_USER, loggedinUser })
+            store.dispatch({ type: SET_BALANCE, userBalance: loggedinUser.balance })
+        })
         .then(() => { showSuccessMsg('Logged in successfully') })
         .catch((err) => { showErrorMsg('Oops try again') })
 }
 export function logout() {
     userService.logout()
-        .then(() => store.dispatch({ type: SET_USER, loggedinUser: null }))
+        .then(() => {
+            store.dispatch({ type: SET_USER, loggedinUser: null })
+            store.dispatch({ type: SET_BALANCE, userBalance: null })
+        })
         .catch(() => showErrorMsg('OOPs try again'))
 }
 
 export function signup(credentials) {
     userService.signup(credentials)
         .then(store.dispatch({ type: SET_USER, loggedinUser: credentials }))
-        .then(() => { 
-            showSuccessMsg('Signed in successfully') 
+        .then(() => {
+            showSuccessMsg('Signed in successfully')
         })
         .catch((err) => { showErrorMsg('Oops try again') })
 }
