@@ -32,8 +32,8 @@ export function AppHeader() {
                     < section >
                         <Link to={`/user/${loggedinUser._id}`}>Hello {loggedinUser.fullname}</Link>
                         <p>Balance: {balance}</p>
-                        <button onClick={onLogout}>Logout</button>
                         <p>Done: {donePercent}%</p>
+                        <button onClick={onLogout}>Logout</button>
                     </ section >
                 ) : (
                     <section>
