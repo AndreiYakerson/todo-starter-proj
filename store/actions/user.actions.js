@@ -1,6 +1,6 @@
 import { showErrorMsg, showSuccessMsg } from "../../services/event-bus.service.js";
 import { userService } from "../../services/user.service.js";
-import { SET_USER } from "../reducers/user.reducer.js";
+import { SET_BALANCE, SET_USER } from "../reducers/user.reducer.js";
 import { store } from "../store.js";
 
 export function login(user) {
@@ -14,4 +14,17 @@ export function logout() {
         .then(() => store.dispatch({ type: SET_USER, loggedinUser: null }))
         .catch(() => showErrorMsg('OOPs try again'))
 }
+
+export function setBalance(balance) {
+    userService.setUserBalance(balance)
+        .then((user) => {
+            console.log(user);
+
+            store.dispatch({ type: SET_BALANCE, userBalance: user.balance })
+        })
+        .catch(() => showErrorMsg('OOPs try again'))
+
+}
+
+
 

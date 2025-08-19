@@ -13,6 +13,7 @@ export function AppHeader() {
     const loggedinUser = useSelector(state => state.userModule.loggedinUser)
     const donePercent = useSelector(state => state.todoModule.donePercent)
     const todos = useSelector(state => state.todoModule.todos)
+    const balance = useSelector(state => state.userModule.userBalance)
 
     useEffect(() => {
         updateDonePercent()
@@ -23,7 +24,6 @@ export function AppHeader() {
     }
 
 
-    
     return (
         <header className="app-header full main-layout">
             <section className="header-container">
@@ -31,6 +31,7 @@ export function AppHeader() {
                 {loggedinUser ? (
                     < section >
                         <Link to={`/user/${loggedinUser._id}`}>Hello {loggedinUser.fullname}</Link>
+                        <p>Balance: {balance}</p>
                         <button onClick={onLogout}>Logout</button>
                         <p>Done: {donePercent}%</p>
                     </ section >

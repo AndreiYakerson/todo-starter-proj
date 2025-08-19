@@ -1,10 +1,12 @@
+import { userService } from "../../services/user.service.js";
 
 //CMDS:
 export const SET_USER = 'SET_USER'
+export const SET_BALANCE = 'SET_BALANCE'
 
 const initialState = {
     loggedinUser: null,
-    userBalance: 1000,
+    userBalance: userService.getLoggedinUser().balance || 0,
 }
 
 export function userReducer(state = initialState, cmd = {}) {
@@ -12,7 +14,7 @@ export function userReducer(state = initialState, cmd = {}) {
         case SET_USER:
             return { ...state, loggedinUser: cmd.loggedinUser }
             
-        case SET_USER:
+        case SET_BALANCE:
             return { ...state, userBalance: cmd.userBalance }
 
         default:

@@ -2,7 +2,9 @@ import { TodoFilter } from "../cmps/TodoFilter.jsx"
 import { TodoList } from "../cmps/TodoList.jsx"
 import { DataTable } from "../cmps/data-table/DataTable.jsx"
 import { todoService } from "../services/todo.service.js"
+import { userService } from "../services/user.service.js"
 import { loadTodos, removeTodo, saveTodo } from "../store/actions/todo.actions.js"
+import { setBalance } from "../store/actions/user.actions.js"
 import { SET_FILTER_BY } from "../store/reducers/todo.reducer.js"
 
 const {  useEffect } = React
@@ -33,9 +35,9 @@ export function TodoIndex() {
     }
 
     function onToggleTodo(todo) {
-        //TODO fix toggle bug
         const todoToSave = { ...todo, isDone: !todo.isDone }
         saveTodo(todoToSave)
+        if (todoToSave.isDone) setBalance(10)
     }
 
     if (!todos) return <div>Loading...</div>
