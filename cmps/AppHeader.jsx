@@ -29,10 +29,14 @@ export function AppHeader() {
             <section className="header-container">
                 <h1>React Todo App</h1>
                 {loggedinUser ? (
-                    < section >
+                    < section className="user-info" >
                         <Link to={`/user/${loggedinUser._id}`}>Hello {loggedinUser.fullname}</Link>
                         <p>Balance: {balance}</p>
-                        <p>Done: {donePercent}%</p>
+                        <div className="bar-container"> 
+                            <div className="bar" style={{width: `${donePercent}%`}}>
+                                <span>{donePercent}%</span>
+                            </div>
+                        </div>
                         <button onClick={onLogout}>Logout</button>
                     </ section >
                 ) : (
