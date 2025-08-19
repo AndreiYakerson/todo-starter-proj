@@ -1,10 +1,11 @@
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
 import { userService } from '../services/user.service.js'
-import { login } from '../store/actions/user.actions.js'
+import { login, signup } from '../store/actions/user.actions.js'
 
 const { useState } = React
+const { useNavigate } = ReactRouterDOM
 
-export function LoginSignup({ onSetUser }) {
+export function LoginSignup() {
 
     const [isSignup, setIsSignUp] = useState(false)
     const [credentials, setCredentials] = useState(userService.getEmptyCredentials())
@@ -24,12 +25,7 @@ export function LoginSignup({ onSetUser }) {
         isSignup ? signup(credentials) : login(credentials)
     }
 
-    function signup(credentials) {
-        userService.signup(credentials)
-            .then(onSetUser)
-            .then(() => { showSuccessMsg('Signed in successfully') })
-            .catch((err) => { showErrorMsg('Oops try again') })
-    }
+    
 
     return (
         <div className="login-page">

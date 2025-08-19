@@ -15,6 +15,15 @@ export function logout() {
         .catch(() => showErrorMsg('OOPs try again'))
 }
 
+export function signup(credentials) {
+    userService.signup(credentials)
+        .then(store.dispatch({ type: SET_USER, loggedinUser: credentials }))
+        .then(() => { 
+            showSuccessMsg('Signed in successfully') 
+        })
+        .catch((err) => { showErrorMsg('Oops try again') })
+}
+
 export function setBalance(balance) {
     userService.setUserBalance(balance)
         .then((user) => {
