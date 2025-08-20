@@ -51,7 +51,7 @@ function getLoggedinUser() {
 
 function setUserBalance(balance) {
     const user = getLoggedinUser()
-    user.balance += balance
+    if (user) user.balance += balance
 
     return storageService.put(STORAGE_KEY, user)
         .then(_setLoggedinUser)

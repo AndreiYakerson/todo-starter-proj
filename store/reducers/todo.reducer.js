@@ -17,8 +17,8 @@ const initialState = {
     todos: [],
     filterBy: todoService.getDefaultFilter(),
     donePercent: 0,
+    maxPage: 0
 }
-
 
 
 export function todoReducer(state = initialState, cmd = {}) {

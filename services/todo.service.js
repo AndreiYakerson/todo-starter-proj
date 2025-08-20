@@ -1,6 +1,7 @@
 import { utilService } from './util.service.js'
 import { storageService } from './async-storage.service.js'
 
+const pageSize = 4
 const TODO_KEY = 'todoDB'
 _createTodos()
 
@@ -14,6 +15,7 @@ export const todoService = {
     getFilterFromSearchParams,
     getImportanceStats,
     getDonePercent,
+    getMaxPage
 }
 // For Debug (easy access from console):
 window.cs = todoService
@@ -35,15 +37,29 @@ function query(filterBy = {}) {
                 else todos = todos.filter(todo => !todo.isDone)
             }
 
+            if (filterBy.pageIdx !== undefined) {
+                const startIdx = filterBy.pageIdx * pageSize
+                todos = todos.slice(startIdx, startIdx + pageSize)
+            }
+
             return todos
         })
 }
 
 function getDonePercent() {
-   return storageService.query(TODO_KEY)
+    return storageService.query(TODO_KEY)
         .then(todos => {
-            const doneCount = todos.reduce((acc, todo) => acc + todo.isDone , 0)
+            const doneCount = todos.reduce((acc, todo) => acc + todo.isDone, 0)
             return Math.floor(doneCount / todos.length * 100)
+        })
+}
+
+function getMaxPage() {
+    return storageService.query(TODO_KEY)
+        .then(todos => {
+            const maxPage = Math.ceil(todos.length / pageSize) - 1
+            // return maxPage < 0 ? 0 : maxPage
+            return maxPage
         })
 }
 
@@ -76,15 +92,17 @@ function getEmptyTodo(txt = '', importance = 5) {
 }
 
 function getDefaultFilter() {
-    return { txt: '', importance: 0, sortBy: '' }
+    return { txt: '', importance: 0, sortBy: '', pageIdx: '0' }
 }
 
 function getFilterFromSearchParams(searchParams) {
     const defaultFilter = getDefaultFilter()
+
     const filterBy = {}
     for (const field in defaultFilter) {
         filterBy[field] = searchParams.get(field) || ''
     }
+
     return filterBy
 }
 

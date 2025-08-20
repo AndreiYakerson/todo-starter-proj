@@ -25,7 +25,7 @@ export function TodoFilter({ filterBy }) {
             default: break
         }
 
-        dispatch({ type: 'SET_FILTER_BY', filterBy: { [field]: value } })
+        dispatch({ type: 'SET_FILTER_BY', filterBy: { [field]: value, pageIdx: 0 } })
     }
 
     // Optional support for LAZY Filtering with a button
