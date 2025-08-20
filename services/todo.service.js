@@ -23,22 +23,23 @@ window.cs = todoService
 function query(filterBy = {}) {
     return storageService.query(TODO_KEY)
         .then(todos => {
-            const todosLength = todos.length
-
+            
             if (filterBy.txt) {
                 const regExp = new RegExp(filterBy.txt, 'i')
                 todos = todos.filter(todo => regExp.test(todo.txt))
             }
-
+            
             if (filterBy.importance) {
                 todos = todos.filter(todo => todo.importance >= filterBy.importance)
             }
-
+            
             if (filterBy.sortBy !== '') {
                 if (filterBy.sortBy === 'Done') todos = todos.filter(todo => todo.isDone)
-                else todos = todos.filter(todo => !todo.isDone)
+                    else todos = todos.filter(todo => !todo.isDone)
             }
 
+            const todosLength = todos.length
+            
             if (filterBy.pageIdx !== undefined) {
                 const startIdx = filterBy.pageIdx * pageSize
                 todos = todos.slice(startIdx, startIdx + pageSize)
