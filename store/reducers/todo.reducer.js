@@ -10,6 +10,8 @@ export const UPDATE_TODO = 'UPDATE_TODO'
 export const SET_DONE_PERCENT = 'SET_DONE_PERCENT'
 
 export const SET_FILTER_BY = 'SET_FILTER_BY'
+export const SET_MAX_PAGE = 'SET_MAX_PAGE'
+
 
 
 
@@ -42,6 +44,9 @@ export function todoReducer(state = initialState, cmd = {}) {
 
         case SET_FILTER_BY:
             return { ...state, filterBy: { ...state.filterBy, ...cmd.filterBy } }
+
+        case SET_MAX_PAGE:
+            return { ...state, maxPage: cmd.maxPage }
 
         default:
             return state;

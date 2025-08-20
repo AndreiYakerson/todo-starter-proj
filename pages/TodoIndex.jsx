@@ -14,9 +14,9 @@ export function TodoIndex() {
     const todos = useSelector(state => state.todoModule.todos)
     const filterBy = useSelector(state => state.todoModule.filterBy)
     const maxPage = useSelector(state => state.todoModule.maxPage)
-
-
-
+    
+    console.log(maxPage);
+    
 
     const dispatch = useDispatch()
 
@@ -44,8 +44,9 @@ export function TodoIndex() {
     }
 
     function onChangePage(diff) {
-        const newPage = +filterBy.pageIdx + diff
-        if (newPage < 0) return
+        let newPage = +filterBy.pageIdx + diff
+        if (newPage < 0) newPage = maxPage - 1
+        if (newPage === maxPage) newPage = 0
         dispatch({ type: SET_FILTER_BY, filterBy: { ...filterBy, pageIdx: +newPage } })
     }
 

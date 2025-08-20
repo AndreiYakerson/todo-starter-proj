@@ -1,12 +1,15 @@
 import { showErrorMsg, showSuccessMsg } from "../../services/event-bus.service.js";
 import { todoService } from "../../services/todo.service.js";
-import { ADD_TODO, REMOVE_TODOS, SET_DONE_PERCENT, SET_TODOS, UPDATE_TODO } from "../reducers/todo.reducer.js";
+import { ADD_TODO, REMOVE_TODOS, SET_DONE_PERCENT, SET_MAX_PAGE, SET_TODOS, UPDATE_TODO } from "../reducers/todo.reducer.js";
 import { store } from "../store.js";
 
 
 export function loadTodos(filterBy) {
     return todoService.query(filterBy)
-        .then(todos => store.dispatch({ type: SET_TODOS, todos }))
+        .then(({ todos, maxPage }) => {
+            store.dispatch({ type: SET_TODOS, todos })
+            store.dispatch({ type: SET_MAX_PAGE, maxPage })
+        })
         .catch(err => {
             console.error('err:', err)
             showErrorMsg('Cannot load todos')
@@ -28,10 +31,10 @@ export function removeTodo(todoId) {
 
 export function saveTodo(todoToSave) {
     const cmdType = todoToSave._id ? UPDATE_TODO : ADD_TODO
-    
+
     return todoService.save(todoToSave)
         .then((savedTodo) => {
-            
+
             store.dispatch({ type: cmdType, savedTodo })
             showSuccessMsg(`Todo is ${(savedTodo.isDone) ? 'done' : 'back on your list'}`)
         })

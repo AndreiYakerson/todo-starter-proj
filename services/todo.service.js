@@ -23,6 +23,8 @@ window.cs = todoService
 function query(filterBy = {}) {
     return storageService.query(TODO_KEY)
         .then(todos => {
+            const todosLength = todos.length
+
             if (filterBy.txt) {
                 const regExp = new RegExp(filterBy.txt, 'i')
                 todos = todos.filter(todo => regExp.test(todo.txt))
@@ -42,7 +44,7 @@ function query(filterBy = {}) {
                 todos = todos.slice(startIdx, startIdx + pageSize)
             }
 
-            return todos
+            return {todos , maxPage: Math.ceil(todosLength / pageSize)}
         })
 }
 
@@ -97,7 +99,6 @@ function getDefaultFilter() {
 
 function getFilterFromSearchParams(searchParams) {
     const defaultFilter = getDefaultFilter()
-
     const filterBy = {}
     for (const field in defaultFilter) {
         filterBy[field] = searchParams.get(field) || ''
